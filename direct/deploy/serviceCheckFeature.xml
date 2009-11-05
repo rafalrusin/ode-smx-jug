@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<features>
+	<feature name="serviceCheck" version="1.0">
+		<bundle>mvn:pl.touk.smx4.examples/route-2/1.0</bundle>
+		<bundle>mvn:pl.touk.smx4.examples/service/1.0</bundle>		
+	</feature>
+</features>

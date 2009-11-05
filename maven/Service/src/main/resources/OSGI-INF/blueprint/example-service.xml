@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:shell="http://felix.apache.org/karaf/xmlns/shell/v1.0.0">
+
+    <bean id="simpleService" class="pl.touk.smx4.examples.service.impl.SimpleServiceImpl"/>
+
+    <service ref="simpleService" activation="lazy" >
+        <interfaces>
+            <value>pl.touk.smx4.examples.service.SimpleService</value>
+        </interfaces>
+        <service-properties>
+            <entry key="names" value="service1"/>
+        </service-properties>
+    </service>
+
+</blueprint>

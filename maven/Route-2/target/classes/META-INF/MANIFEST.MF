@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Private-Package: pl.touk.smx4.examples.route;version="1.0"
+Bundle-Version: 1.0
+Tool: Bnd-0.0.255
+Bundle-Name: Route-2
+Bnd-LastModified: 1257418794325
+Created-By: 1.6.0_16 (Sun Microsystems Inc.)
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: route-2
+Import-Package: org.apache.camel;version="2.0",org.apache.camel.builde
+ r;version="2.0",org.apache.camel.language;version="2.0",org.apache.ca
+ mel.model;version="2.0",org.apache.servicemix.common.osgi,org.apache.
+ servicemix.http.endpoints,pl.touk.smx4.examples.service;version="1.0"
+Originally-Created-By: 1.6.0_16 (Sun Microsystems Inc.)
+
