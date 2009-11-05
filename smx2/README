@@ -1,0 +1,18 @@
+Używam SMX w wersji 4.1.0-SNAPSHOT
+- po uruchomieniu trzeba zainstalować feature'y:
+  camel-nmr - features:install camel-nmr
+  camel-jms - features:install camel-jms
+- maven - mvn install ;)
+- direct - skopiować do odpowiednich katalogów dystrybucji (najpierw trzeba zbudować projekt)
+
+w direct:
+- route-1.xml - jak instalować konteksty aplikacji springa jako wiązki osgi, jak definiować trasowanie przy pomocy camel-nmr, komponentów smx, definiowanie tras w camelu przez xml, 
+  korzystanie z zewnętrznej konfiguracji (osgi properties)
+- route.cfg - zewnętrzna konfiguracja
+- localhost-broker.xml - konfiguracja brokera activemq (poobcinana domyślna konfiguracja)
+- serviceCheckFeature.xml - definicja aplikacji, składającej się z dwóch wiązek osgi
+
+w maven:
+- Route-2 - wykorzystanie konfiguracji przez spring DM, definicje trasowania przez DSL camela, użycie servicemix-http 
+- Service - definicja zewnętrznego serwisu za pomocą OSGI blueprint, jak może być użyty przez komponenty definiowane przez spring DM
+
