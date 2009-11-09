@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="serviceChecker" resourceRoot="" soapui-version="3.0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="serviceChecker" type="wsdl" bindingName="{http://touk.pl/serviceChecker}serviceChecker" soapVersion="1_1" anonymous="optional" definition="file:/home/mproch/presentation/git/smx2/maven/Route-2/src/main/resources/pl/touk/interface/serviceChecker.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    <con:definitionCache type="TEXT" rootPart="file:/home/mproch/presentation/git/smx2/maven/Route-2/src/main/resources/pl/touk/interface/serviceChecker.wsdl">
+      <con:part>
+        <con:url>file:/home/mproch/presentation/git/smx2/maven/Route-2/src/main/resources/pl/touk/interface/serviceChecker.wsdl</con:url>
+        <con:content><![CDATA[<definitions name="serviceChecker" targetNamespace="http://touk.pl/serviceChecker" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://touk.pl/serviceChecker" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <types>
+    <xsd:schema targetNamespace="http://touk.pl/serviceChecker">
+      <xsd:element name="question">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="key" type="xsd:integer"/>
+            <xsd:element name="content" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="answer">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="answer" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </types>
+  <message name="question">
+    <part element="tns:question" name="parameters"/>
+  </message>
+  <message name="answer">
+    <part element="tns:answer" name="parameters"/>
+  </message>
+  <portType name="serviceChecker">
+    <operation name="checkState">
+      <input message="tns:question"/>
+      <output message="tns:answer"/>
+    </operation>
+  </portType>
+  <binding name="serviceChecker" type="tns:serviceChecker">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="checkState">
+      <soap:operation/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="serviceChecker">
+    <port binding="tns:serviceChecker" name="serviceChecker">
+      <soap:address location="http://localhost:8090/service/serviceChecker/"/>
+    </port>
+  </service>
+</definitions>]]></con:content>
+        <con:type>http://schemas.xmlsoap.org/wsdl/</con:type>
+      </con:part>
+    </con:definitionCache>
+    <con:endpoints>
+      <con:endpoint>http://localhost:8193/ServiceChecker/</con:endpoint>
+      <con:endpoint>http://localhost:8193/ServiceChecker/</con:endpoint>
+    </con:endpoints>
+    <con:operation isOneWay="false" action="" name="checkState" bindingOperationName="checkState" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
+      <con:settings/>
+      <con:call name="Request 1">
+        <con:settings/>
+        <con:encoding>UTF-8</con:encoding>
+        <con:endpoint>http://localhost:8193/ServiceChecker/</con:endpoint>
+        <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://touk.pl/serviceChecker">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:question>
+         <key>12</key>
+         <content>12</content>
+      </ser:question>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+        <con:wsaConfig mustUnderstand="NONE" version="200508" action="http://touk.pl/serviceChecker/serviceChecker/checkStateRequest"/>
+        <con:wsrmConfig version="1.2"/>
+      </con:call>
+    </con:operation>
+  </con:interface>
+  <con:testSuite name="Test check">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Test1" searchProperties="true">
+      <con:settings/>
+      <con:testStep type="request" name="sendCheck">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>serviceChecker</con:interface>
+          <con:operation>checkState</con:operation>
+          <con:request name="sendCheck">
+            <con:settings/>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>http://localhost:8193/ServiceChecker/</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://touk.pl/serviceChecker">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:question>
+         <key>12</key>
+         <content>11</content>
+      </ser:question>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response"/>
+            <con:assertion type="Schema Compliance" disabled="true">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="XPath Match">
+              <con:configuration>
+                <path>declare namespace ns1='http://touk.pl/serviceChecker'; //ns1:answer</path>
+                <content>service: 11 is in a bad state :P</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep>
+      <con:properties/>
+    </con:testCase>
+    <con:properties/>
+  </con:testSuite>
+  <con:properties/>
+  <con:wssContainer/>
+</con:soapui-project>
