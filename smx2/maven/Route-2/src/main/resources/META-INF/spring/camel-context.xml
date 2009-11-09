@@ -23,10 +23,12 @@
 		</packageScan>
 	</camel-osgi:camelContext>
 
-	<http:consumer service="touk:serviceCheckerChannel"
+	<http:endpoint service="touk:serviceCheckerChannel"
 		endpoint="default" targetService="touk:serviceChecker" targetEndpoint="default"
+		wsdlResource="classpath:pl/touk/interface/serviceChecker.wsdl"
+		soap="true" role="consumer"
 		locationURI="http://localhost:8193/ServiceChecker/">
-	</http:consumer>
+	</http:endpoint>
 
 
 </beans>
