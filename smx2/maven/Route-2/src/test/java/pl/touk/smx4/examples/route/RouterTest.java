@@ -24,29 +24,33 @@ public class RouterTest extends CamelTestSupport {
     @Before
     public void start() throws Exception {
         context = createCamelContext();
+        //trick to send to jbi endpoints ;) 
         context.removeComponent("jbi");
         context.addComponent("jbi", context.getComponent("direct"));
+        
         context.addRoutes(new Router());
+        
         MapRegistry m = new MapRegistry(); 
         m.put("customChecker", new CustomChecker());
         m.put("simpleService", new SimpleServiceImpl());
         ((DefaultCamelContext) context).setRegistry(m);
+        
         context.start();
     }
     
     private void testOne(String content, String expected) {
         assertEquals(expected,
-        context.createProducerTemplate().requestBody("jbi:service:http://touk.pl/serviceChecker", content).toString().replaceAll("<.?answer>", ""));
+        context.createProducerTemplate().requestBody("jbi:endpoint:http://touk.pl/serviceChecker/default", content).toString().replaceAll("<.?answer[^>]*>", ""));
     }
     
     @Test
     public void testOdd() throws Exception {
-        testOne("<a><content>maaa</content><value>11</value></a>", "didn't check");
+        testOne("<a><content>maaa</content><key>11</key></a>", "didn't check");
     }
 
     @Test
     public void testEven() throws Exception {
-        testOne("<a><content>maaa</content><value>12</value></a>", "service: maaa is in a bad state :P");
+        testOne("<a><content>maaa</content><key>12</key></a>", "service: maaa is in a bad state :P");
     }
 
     /**

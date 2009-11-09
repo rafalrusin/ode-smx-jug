@@ -11,7 +11,7 @@ import org.apache.camel.language.XPath;
  */
 public class CustomChecker {
 
-    public boolean shouldCheck(@XPath("//value") String value) {
+    public boolean shouldCheck(@XPath("//key") String value) {
         return Integer.parseInt(value) % 2 == 0;
     }
     

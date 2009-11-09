@@ -15,6 +15,7 @@
 	<jaxb.version>2.1</jaxb.version>
 	<export.packages/>
 	<import.packages/>
+	<dynamic.import/>
     </properties>
 
     <modules>
@@ -40,6 +41,7 @@
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
 						<Export-Package>${export.packages}</Export-Package>
 						<Import-Package>${import.packages}</Import-Package>
+						<DynamicImport-Package>${dynamic.import}</DynamicImport-Package>
 						<Bundle-Name>${project.name}</Bundle-Name>
 						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
 					</instructions>

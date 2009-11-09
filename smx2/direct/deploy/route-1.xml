@@ -25,6 +25,7 @@
 	<import resource="classpath:org/apache/servicemix/camel/nmr/camel-nmr.xml" />
 
 	<camel-osgi:camelContext xmlns="http://camel.apache.org/schema/spring">
+		<endpoint id="fileOut" uri="file://@{file.output}"/>
 		<route>
 			<from uri="jms:fromRR" />
 			<to uri="nmr:MyRouter" />
@@ -39,8 +40,8 @@
 				<simple>Przyszła wiadomość: ${body}</simple>
 			</transform>
 			<to uri="log:MyRouter" />
-			<to uri="jbi:endpoint:http://touk.pl/jmsReply/reply" />
-			<to uri="file://@{file.output}" />
+			<!--to uri="jbi:endpoint:http://touk.pl/jmsReply/reply" /-->
+			<to ref="fileOut" />
 		</route>
 	</camel-osgi:camelContext>
 

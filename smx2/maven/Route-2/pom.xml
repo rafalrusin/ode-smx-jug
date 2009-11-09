@@ -44,7 +44,9 @@
     </dependencies>
 
 	<properties>
-		<import.packages>pl.touk.smx4.examples.service,org.apache.servicemix.common.osgi,org.apache.camel.*,org.apache.servicemix.http.endpoints</import.packages>
+		<import.packages>pl.touk.smx4.examples.service,org.apache.camel,org.apache.camel.component.file.strategy</import.packages>
+		<export.packages>pl.touk.interface</export.packages>
+		<dynamic.import>org.apache.servicemix.*,org.apache.camel.*</dynamic.import>
 	</properties>
 
 </project>

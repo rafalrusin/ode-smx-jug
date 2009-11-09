@@ -13,13 +13,13 @@ public class Router extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("jbi:service:http://touk.pl/serviceChecker").choice()
+        from("jbi:endpoint:http://touk.pl/serviceChecker/default").streamCaching().choice()
                 .when().method("customChecker", "shouldCheck")
                     .setBody().xpath("//content").beanRef("simpleService", "getServiceState")
                 .otherwise()
                     .setBody(constant("didn't check"))
                  .end()
-                 .transform().simple("<answer>${body}</answer>");
+                 .transform().simple("<answer xmlns=\"http://touk.pl/serviceChecker\">${body}</answer>");
     }
 
 }

@@ -24,7 +24,7 @@
 	</camel-osgi:camelContext>
 
 	<http:consumer service="touk:serviceCheckerChannel"
-		endpoint="default" targetService="touk:serviceChecker" 
+		endpoint="default" targetService="touk:serviceChecker" targetEndpoint="default"
 		locationURI="http://localhost:8193/ServiceChecker/">
 	</http:consumer>
 
