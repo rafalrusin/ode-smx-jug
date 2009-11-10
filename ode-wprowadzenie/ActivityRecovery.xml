@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpws:process>
+  <bpws:sequence>
+    <bpws:scope>
+      <ext:failureHandling xmlns:ext="http://ode.apache.org/activityRecovery">
+        <ext:faultOnFailure>true</ext:faultOnFailure>
+      </ext:failureHandling>
+
+      <bpws:sequence>
+        <bpws:receive createInstance="yes" operation="initiate" partnerLink="client" portType="tns:OnEventCorrelation" variable="input"/>
+
+        <bpws:invoke partnerLink="plk" operation="oper" outputVariable="var1" inputVariable="var2">
+
+            <ext:failureHandling xmlns:ext="http://ode.apache.org/activityRecovery">
+                <ext:faultOnFailure>false</ext:faultOnFailure>
+                <ext:retryFor>30</ext:retryFor>
+                <ext:retryDelay>900</ext:retryDelay>
+            </ext:failureHandling>
+
+        </bpws:invoke>
+
+        <bpws:reply operation="initiate" partnerLink="client" variable="output"/>
+
+      </bpws:sequence>
+    </bpws:scope>
+  </bpws:sequence>
+</bpws:process>
