@@ -1,0 +1,49 @@
+<wsdl:definitions xmlns:prop="http://docs.oasis-open.org/wsbpel/2.0/varprop">
+
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="requestMessageData" type="typens:testMessage"/>
+    </wsdl:message>
+
+    <wsdl:message name="replyMessage">
+        <wsdl:part name="replyID" type="xsd:string"/>
+        <wsdl:part name="replyText" type="xsd:string"/>
+    </wsdl:message>
+
+    <prop:property name="testProbeID" type="xsd:string"/>
+    <prop:propertyAlias propertyName="tns:testProbeID" messageType="tns:requestMessage" part="requestMessageData">
+        <prop:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
+            requestID
+        </prop:query>
+    </prop:propertyAlias>
+
+    <prop:property name="testProbeData" type="xsd:string"/>
+    <prop:propertyAlias propertyName="tns:testProbeData" messageType="tns:requestMessage" part="requestMessageData">
+        <prop:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
+            requestText
+        </prop:query>
+    </prop:propertyAlias>
+
+</wsdl:definitions>
+
+
+<process>
+	<correlationSets>
+		<correlationSet name="testCorr1" properties="wns:testProbeID"/>
+	</correlationSets>
+	<sequence>
+		<receive name="receive1" partnerLink="request" portType="wns:testCorrelationPT" operation="request" variable="request" createInstance="yes">
+			<correlations>
+				<correlation set="testCorr1" initiate="yes"/>
+			</correlations>
+		</receive>
+
+		<invoke name="probe" partnerLink="probe" portType="prb:probeMessagePT" operation="probe" inputVariable="probeInput" outputVariable="probeInput"> 
+			<correlations>
+				<correlation set="testCorr1" initiate="yes" pattern="request | response | request-response"/>
+			</correlations>
+                </invoke>
+
+		<reply name="reply" partnerLink="request" portType="wns:testCorrelationPT" operation="request" variable="reply"> </reply>
+	</sequence>
+</process>
+

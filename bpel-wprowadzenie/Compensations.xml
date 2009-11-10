@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<process>
+  <sequence>
+    <scope name="ScopeOne">
+      <faultHandlers>
+        <catchAll>
+          <compensateScope target="ScopeTwo"/>
+        </catchAll>
+      </faultHandlers>
+      <sequence>
+        <scope name="ScopeTwo">
+          <compensationHandler>
+            ...
+          </compensationHandler>
+          <sequence>
+            ...
+          </sequence>
+        </scope>
+         ...
+        <throw faultName="tns:unknownFault"/>
+        ...
+      </sequence>
+    </scope>
+  </sequence>
+</process>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpel:process>
+  <bpel:sequence>
+    <bpel:receive partnerLink="processAndPoolPlkVar" portType="this:ForPool" operation="receiveNPR" variable="thisReceiveNPRRequestMsg" createInstance="yes">
+    </bpel:receive>
+
+    <bpel:scope>
+      <bpel:faultHandlers>
+        <bpel:catch faultName="this:cancel">
+          <bpel:scope>
+            <bpel:sequence>
+              <bpel:empty/>
+            </bpel:sequence>
+          </bpel:scope>
+        </bpel:catch>
+      </bpel:faultHandlers>
+      <bpel:eventHandlers>
+        <bpel:onEvent partnerLink="processAndPoolPlkVar" portType="this:ForPool" operation="receiveCancel" messageType="this:receiveCancelRequest" variable="thisReceiveCancelRequestMsg">
+          <bpel:scope>
+            <bpel:sequence>
+              <bpel:empty/>
+              <bpel:throw faultName="this:cancel"/>
+            </bpel:sequence>
+          </bpel:scope>
+        </bpel:onEvent>
+        <bpel:onAlarm>
+          <bpel:for>"PT30S"</bpel:for>
+          <bpel:scope>
+            <bpel:sequence>
+              <bpel:throw faultName="this:cancel"/>
+            </bpel:sequence>
+          </bpel:scope>
+        </bpel:onAlarm>
+      </bpel:eventHandlers>
+      <bpel:sequence>
+         ...
+      </bpel:sequence>
+    </bpel:scope>
+  </bpel:sequence>
+</bpel:process>
