@@ -1,17 +1,17 @@
-<beans xmlns:jms="jms://servicemix.apache.org/jms/1.0"
-       xmlns:ping="urn:/Ping.wsdl"
-       xmlns:pong="urn:/Pong.wsdl"
+<beans xmlns:jms="http://servicemix.apache.org/jms/1.0"
+       xmlns:sac="http://touk.pl/serviceAccepter"
     >
-    <jms:endpoint 
-        service="ping:PingService"
-        endpoint="jms" 
-	targetService="ping:PingService"
-	targetEndpoint="PingPort"
-        defaultOperation="Ping"
-        role="consumer"
-        locationURI="jms://localhost:8192/Pingjms/"
-        defaultMep="jms://www.w3.org/2004/08/wsdl/in-out" 
-	wsdlResource="classpath:Ping.wsdl"
-	soapVersion="1.1"
-        soap="true" />
+
+  <bean id="connectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName" value="java:/jms/connectionFactory" />
+  </bean>
+
+  <jms:provider service="sac:ServiceAccepter" endpoint="ServiceAccepter"
+		destinationName="serviceAccepter" connectionFactory="#connectionFactory" />
+
+  <jms:consumer service="sac:ServiceAccepterResponse" endpoint="jms"
+		targetService="sac:ServiceAccepterResponse" targetEndpoint="ServiceAccepterResponse"
+		destinationName="serviceAccepterResponse"
+		connectionFactory="#connectionFactory"
+	/>
 </beans>
