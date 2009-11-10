@@ -7,14 +7,14 @@
   </bean>
 
   <jms:provider service="sac:ServiceAccepter" endpoint="ServiceAccepter"
-		destinationName="serviceAccepter" connectionFactory="#connectionFactory" />
+		destinationName="fromRR" connectionFactory="#connectionFactory" />
 
     <jms:endpoint 
         role="consumer"
         service="sac:ServiceAccepterResponse" endpoint="jms"
 		targetService="sac:ServiceAccepterResponse" targetEndpoint="ServiceAccepterResponse"
         destinationStyle="queue"
-        jmsProviderDestinationName="serviceAccepterResponse"
+        jmsProviderDestinationName="ala"
 		connectionFactory="#connectionFactory"
         defaultOperation="sac:acceptService"
         defaultMep="http://www.w3.org/2004/08/wsdl/in-only"
