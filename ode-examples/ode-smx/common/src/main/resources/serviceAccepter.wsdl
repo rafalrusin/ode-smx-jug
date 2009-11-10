@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:tns="http://touk.pl/serviceAccepter" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	name="serviceAccepter" targetNamespace="http://touk.pl/serviceAccepter"
+        xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema targetNamespace="http://touk.pl/serviceAccepter">
+			<xsd:element name="question" type="xsd:string"/>
+		</xsd:schema>
+	</types>
+
+	<message name="claim">
+		<part element="tns:question" name="parameters" />
+	</message>
+	<portType name="serviceAccepter">
+		<operation name="acceptService">
+			<input message="tns:claim" />
+		</operation>
+	</portType>
+
+    <plnk:partnerLinkType name="ServiceAccepterPartnerLinkType">
+        <plnk:role name="Provider" portType="tns:serviceAccepter"/>
+    </plnk:partnerLinkType>
+
+</definitions>

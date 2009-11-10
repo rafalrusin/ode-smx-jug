@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:tns="http://touk.pl/serviceChecker"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="serviceChecker"
+        xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+	targetNamespace="http://touk.pl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema targetNamespace="http://touk.pl/serviceChecker">
+			<xsd:element name="question">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element type="xsd:integer" name="key" />
+						<xsd:element type="xsd:string" name="content" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="answer">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element type="xsd:string" name="answer" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</types>
+
+	<message name="question">
+		<part element="tns:question" name="parameters" />
+	</message>
+	<message name="answer">
+		<part element="tns:answer" name="parameters" />
+	</message>
+	<portType name="serviceChecker">
+		<operation name="checkState">
+			<input message="tns:question" />
+			<output message="tns:answer" />
+		</operation>
+	</portType>
+	<binding name="serviceCheckerSoap" type="tns:serviceChecker">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="checkState">
+			<soap:operation
+				soapAction=""
+				style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+		</operation>
+	</binding>
+	<service name="serviceCheckerChannel">
+		<port name="default" binding="tns:serviceCheckerSoap" />
+	</service>
+
+    <plnk:partnerLinkType name="ServiceCheckerPartnerLinkType">
+        <plnk:role name="Provider" portType="tns:serviceChecker"/>
+    </plnk:partnerLinkType>
+
+</definitions>

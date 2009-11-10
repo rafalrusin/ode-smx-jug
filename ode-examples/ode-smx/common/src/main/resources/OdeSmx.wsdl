@@ -17,58 +17,46 @@
   ~ specific language governing permissions and limitations
   ~ under the License.
   -->
-<definitions name="Pong"
-        targetNamespace="urn:/Pong.wsdl"
-        xmlns:tns="urn:/Pong.wsdl"
+<definitions name="OdeSmx"
+        targetNamespace="urn:/OdeSmx.wsdl"
+        xmlns:tns="urn:/OdeSmx.wsdl"
         xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
         xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
         xmlns="http://schemas.xmlsoap.org/wsdl/">
 
     <types>
-        <schema targetNamespace="urn:/Pong.wsdl"
+        <schema targetNamespace="urn:/OdeSmx.wsdl"
                 xmlns="http://www.w3.org/2000/10/XMLSchema">
-            <element name="PongRequest">
-                <complexType>
-                    <all>
-                        <element name="text" type="string"/>
-                    </all>
-                </complexType>
-            </element>
-            <element name="PongResponse">
-                <complexType>
-                    <all>
-                        <element name="text" type="string"/>
-                    </all>
-                </complexType>
-            </element>
+                <element name="OdeSmxRequest" type="string"/>
+                <element name="OdeSmxResponse" type="string"/>
         </schema>
     </types>
 
-    <message name="PongRequest">
-        <part name="body" element="tns:PongRequest"/>
+    <message name="OdeSmxRequest">
+        <part name="parameters" element="tns:OdeSmxRequest"/>
     </message>
 
-    <message name="PongResponse">
-        <part name="body" element="tns:PongResponse"/>
+    <message name="OdeSmxResponse">
+        <part name="parameters" element="tns:OdeSmxResponse"/>
     </message>
 
-    <portType name="PongPortType">
-        <operation name="Pong">
-            <input message="tns:PongRequest"/>
-            <output message="tns:PongResponse"/>
+    <portType name="OdeSmxPortType">
+        <operation name="OdeSmx">
+            <input message="tns:OdeSmxRequest"/>
+            <output message="tns:OdeSmxResponse"/>
         </operation>
     </portType>
 
-    <plnk:partnerLinkType name="PongPartnerLinkType">
-        <plnk:role name="Provider" portType="tns:PongPortType"/>
+    <plnk:partnerLinkType name="OdeSmxPartnerLinkType">
+        <plnk:role name="Provider" portType="tns:OdeSmxPortType"/>
     </plnk:partnerLinkType>
     
     <!--
     
     This is an abstract interface/portType definition.  Note the lack of 
-    binding and service.  Since Pong is only exposed on the JBI bus, the
-    JBI endpoint is defined in Pong.dd.
-
+    binding and service: these are defined by the HTTP binding component.
+    See OdeSmx-http/OdeSmx.wsdl for details.
+    
     -->
 
 </definitions>

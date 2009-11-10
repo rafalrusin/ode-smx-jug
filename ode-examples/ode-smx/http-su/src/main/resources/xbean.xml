@@ -1,17 +1,32 @@
 <beans xmlns:http="http://servicemix.apache.org/http/1.0"
-       xmlns:ping="urn:/Ping.wsdl"
-       xmlns:pong="urn:/Pong.wsdl"
-    >
+  xmlns:odesmx="urn:/OdeSmx.wsdl"
+  xmlns:sck="http://touk.pl/serviceChecker"
+  >
     <http:endpoint 
-        service="ping:PingService"
-        endpoint="http" 
-	targetService="ping:PingService"
-	targetEndpoint="PingPort"
-        defaultOperation="Ping"
+        service="odesmx:OdeSmxService"
+        endpoint="OdeSmxService" 
+	targetService="odesmx:OdeSmxService"
+	targetEndpoint="OdeSmxService"
+        defaultOperation="OdeSmx"
         role="consumer"
-        locationURI="http://localhost:8192/PingHttp/"
+        locationURI="http://localhost:8192/OdeSmxService/"
         defaultMep="http://www.w3.org/2004/08/wsdl/in-out" 
-	wsdlResource="classpath:Ping.wsdl"
+	wsdlResource="classpath:OdeSmx.wsdl"
 	soapVersion="1.1"
         soap="true" />
+
+    <http:endpoint
+        service="sck:ServiceChecker"
+        endpoint="ServiceChecker" 
+	targetService="sck:ServiceChecker"
+	targetEndpoint="ServiceChecker"
+        defaultOperation="claim"
+        role="provider"
+        locationURI="http://localhost:8193/ServiceChecker/"
+        defaultMep="http://www.w3.org/2004/08/wsdl/in-out" 
+	wsdlResource="classpath:serviceChecker.wsdl"
+	soapVersion="1.1"
+        soap="true"
+    />
 </beans>
+

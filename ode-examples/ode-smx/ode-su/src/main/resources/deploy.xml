@@ -18,25 +18,20 @@
   ~ under the License.
   -->
 <deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03"
-        xmlns:pingProcess="urn:/Ping.bpel"
-        xmlns:pongProcess="urn:/Pong.bpel"
-        xmlns:ping="urn:/Ping.wsdl"
-        xmlns:pong="urn:/Pong.wsdl">
+        xmlns:odeSmxProcess="urn:/ode-smx.bpel"
+        xmlns:odesmx="urn:/OdeSmx.wsdl"
+        >
 
-	<process name="pingProcess:Ping">
+	<process name="odeSmxProcess:ode-smx">
 		<active>true</active>
-		<provide partnerLink="PingPartnerLink">
-			<service name="ping:PingService" port="PingPort"/>
+		<provide partnerLink="odeSmx">
+			<service name="odesmx:OdeSmxSevice" port="OdeSmxService"/>
 		</provide>
-		<invoke partnerLink="PongPartnerLink">
-			<service name="pong:PongService" port="PongPort"/>
+		<provide partnerLink="serviceAccepter">
+			<service name="sac:ServiceAccepterResponse" port="ServiceAccepterResponse"/>
+		</provide>
+		<invoke partnerLink="serviceAccepter">
+			<service name="sac:ServiceAccepter" port="ServiceAccepter"/>
 		</invoke>
 	</process>
-	<process name="pongProcess:Pong">
-		<active>true</active>
-		<provide partnerLink="PongPartnerLink">
-			<service name="pong:PongService" port="PongPort"/>
-		</provide>
-	</process>
-    
 </deploy>
