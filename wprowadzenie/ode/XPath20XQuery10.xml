@@ -1,0 +1,29 @@
+<bpws:assign>
+    <bpws:copy>
+        <bpws:from variable="request" part="parameters">
+            <bpws:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xquery1.0">
+                <![CDATA[
+                    <db:ID_GENERATOR>
+                        <db:EVENT_ID/>
+                        <db:EVENT_TEXT>{//req:eventId/text()}</db:EVENT_CASE_ID>
+                    </db:ID_GENERATOR>
+                ]]>
+            </bpws:query>
+        </bpws:from>
+        <bpws:to>$value</bpws:to>
+    </bpws:copy>
+</bpws:assign>
+
+
+xmlns:ode="http://www.apache.org/ode/type/extension"
+
+ode:insert-before($context as node(), $children as node()*, $siblings as node()*) as node()
+ode:insert-after($context as node(), $children as node()*, $siblings as node()*) as node()
+ode:insert-as-first-into($context as node(), $children as node()*) as node() 
+ode:insert-as-last-into($context as node(), $children as node()*) as node() 
+ode:process-property($name as item()) as node() 
+ode:dom-to-string($node as node()) as xs:string
+
+
+
+
