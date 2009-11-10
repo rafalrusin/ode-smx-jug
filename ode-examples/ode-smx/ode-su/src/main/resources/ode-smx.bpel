@@ -25,7 +25,6 @@
         xmlns:tns="urn:/ode-smx.bpel"
         xmlns:odesmx="urn:/OdeSmx.wsdl"
         xmlns:sac="http://touk.pl/serviceAccepter"
-        xmlns:sck="http://touk.pl/serviceChecker"
         expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath2.0">
 
     <import location="serviceAccepter.wsdl"
@@ -51,6 +50,10 @@
         <variable messageType="sac:claim" name="claim"/>
     </variables>
 
+    <correlationSets>
+        <correlationSet properties="sac:claim" name="claim"/>
+    </correlationSets>
+
     <sequence name="Main">
         <receive
                 createInstance="yes"
@@ -60,7 +63,7 @@
 
         <assign>
             <copy>
-                <from>'test'</from>
+                <from>$odeSmxRequest.parameters</from>
                 <to>$claim.parameters</to>
             </copy>
         </assign>
@@ -69,11 +72,15 @@
                 operation="acceptService"
                 inputVariable="claim"
                 partnerLink="serviceAccepter"
-                />
+                >
+            <correlations>
+                <correlation set="claim" initiate="yes" pattern="request"/>
+            </correlations>
+        </invoke>
         
         <assign>
             <copy>
-                <from>'test2'</from>
+                <from>'ok'</from>
                 <to>$odeSmxResponse.parameters</to>
             </copy>
         </assign>
@@ -82,5 +89,18 @@
                 partnerLink="odeSmx"
                 operation="OdeSmx"
                 variable="odeSmxResponse"/>
+
+
+        <receive
+                operation="acceptService"
+                variable="claim"
+                partnerLink="serviceAccepter"
+                >
+            <correlations>
+                <correlation set="claim" initiate="no"/>
+            </correlations>
+        </receive>
+
+        <empty name="accepted"/>
     </sequence>
 </process>

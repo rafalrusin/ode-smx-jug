@@ -2,8 +2,10 @@
 <definitions xmlns:tns="http://touk.pl/serviceAccepter" 
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
 	name="serviceAccepter" targetNamespace="http://touk.pl/serviceAccepter"
-        xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
-	xmlns="http://schemas.xmlsoap.org/wsdl/">
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop"
+    >
 	<types>
 		<xsd:schema targetNamespace="http://touk.pl/serviceAccepter">
 			<xsd:element name="question" type="xsd:string"/>
@@ -23,4 +25,7 @@
         <plnk:role name="Provider" portType="tns:serviceAccepter"/>
     </plnk:partnerLinkType>
 
+    <vprop:property name="claim" type="xsd:string"/>
+    <vprop:propertyAlias propertyName="tns:claim" messageType="tns:claim" part="parameters">
+    </vprop:propertyAlias>
 </definitions>
