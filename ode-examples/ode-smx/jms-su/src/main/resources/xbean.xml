@@ -2,9 +2,18 @@
        xmlns:sac="http://touk.pl/serviceAccepter"
     >
 
+  <!--
   <bean id="connectionFactory" class="org.springframework.jndi.JndiObjectFactoryBean">
     <property name="jndiName" value="java:/jms/connectionFactory" />
   </bean>
+  -->
+
+  <bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://localhost:61618" />
+        <property name="alwaysSessionAsync" value="false" />
+        <property name="dispatchAsync" value="true" />
+  </bean>
+
 
   <jms:provider service="sac:ServiceAccepter" endpoint="ServiceAccepter"
 		destinationName="fromRR" connectionFactory="#connectionFactory" />
@@ -14,7 +23,7 @@
         service="sac:ServiceAccepterResponse" endpoint="jms"
 		targetService="sac:ServiceAccepterResponse" targetEndpoint="ServiceAccepterResponse"
         destinationStyle="queue"
-        jmsProviderDestinationName="ala"
+        jmsProviderDestinationName="destinationQueue"
 		connectionFactory="#connectionFactory"
         defaultOperation="sac:acceptService"
         defaultMep="http://www.w3.org/2004/08/wsdl/in-only"
