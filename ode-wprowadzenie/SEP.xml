@@ -1,0 +1,32 @@
+<process name="Main">
+
+  <partnerLinks>
+    <partnerLink name="responderPartnerLink" partnerLinkType="test:ResponderPartnerLinkType" myRole="main" partnerRole="responder" initializePartnerRole="yes"/>
+  </partnerLinks>
+
+  <sequence>
+    <invoke name="initiate" partnerLink="responderPartnerLink" portType="test:MSResponderPortType" operation="initiate" inputVariable="dummy2"/>
+
+    <receive name="callback" partnerLink="responderPartnerLink" portType="test:MSMainPortType" operation="callback" variable="dummy3"/>
+
+    <invoke name="get-endpoint" partnerLink="responderPartnerLink" portType="test:MSResponderPortType" operation="doubleCall" inputVariable="dummy4"/>
+
+  </sequence>
+</process>
+
+<process name="Responder">
+
+  <partnerLinks>
+    <partnerLink name="mainPartnerLink" partnerLinkType="resp:ResponderPartnerLinkType" myRole="responder" partnerRole="main" initializePartnerRole="yes"/>
+  </partnerLinks>
+
+  <sequence>
+    <receive name="start" partnerLink="mainPartnerLink" variable="dummy2" portType="resp:MSResponderPortType" operation="initiate" createInstance="yes"/>
+
+    <invoke name="callback" partnerLink="mainPartnerLink" portType="resp:MSMainPortType" operation="callback" inputVariable="dummy3"/>
+
+    <receive name="doubleCall" partnerLink="mainPartnerLink" variable="dummy4" portType="resp:MSResponderPortType" operation="doubleCall"/>
+
+  </sequence>
+</process>
+
