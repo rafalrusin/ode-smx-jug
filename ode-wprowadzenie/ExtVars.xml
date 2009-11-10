@@ -1,0 +1,38 @@
+  <deploy>
+    <process name="pns:HelloWorld">
+      <xvar:externalVariable id="evar1">
+        <jdbc:jdbc>
+          <jdbc:datasource-ref>testds</jdbc:datasource-ref>
+          <jdbc:table>extvartable1</jdbc:table>
+          <jdbc:column name="pid" key="yes" generator="pid"/>
+          <jdbc:column name="id1"/>
+          <jdbc:column name="cts" generator="ctimestamp"/>
+          <jdbc:column name="uts" generator="utimestamp"/>
+          <jdbc:column name="foo"/>
+        </jdbc:jdbc>
+      </xvar:externalVariable>
+    </process>
+  </deploy>
+
+  <process>
+    <variables>
+      <variable name="idx" type="xsd:string"/>
+      <variable name="external" element="foo:row" xvar:id="evar1" xvar:relates-to="idx"/>
+      <variable name="value" type="xsd:string"/>
+    </variables>
+    <sequence>
+      <assign>
+        <copy>
+          <from>'somekey'</from>
+          <to variable="idx"/>
+        </copy>
+      </assign>
+      <assign>
+        <copy>
+          <from>$external/foo:foo</from>
+          <to variable="value"/>
+        </copy>
+      </assign>
+    </sequence>
+  </process>
+
