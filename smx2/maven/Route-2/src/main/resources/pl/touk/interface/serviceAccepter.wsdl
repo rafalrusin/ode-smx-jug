@@ -17,5 +17,18 @@
 			<input message="tns:claim" />
 		</operation>
 	</portType>
-
+	<binding name="serviceAccepterSoap" type="tns:serviceChecker">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="acceptService">
+			<soap:operation
+				soapAction=""
+				style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+		</operation>
+	</binding>
+	<service name="serviceAccepterService">
+		<port name="default" binding="tns:serviceAccepterSoap" />
+	</service>
 </definitions>
