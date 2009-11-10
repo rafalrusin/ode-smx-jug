@@ -29,7 +29,7 @@
 			<service name="ping:PingService" port="PingPort"/>
 		</provide>
 		<invoke partnerLink="PongPartnerLink">
-			<service name="pong:PongServiceFwd" port="PongPort"/>
+			<service name="pong:PongService" port="PongPort"/>
 		</invoke>
 	</process>
 	<process name="pongProcess:Pong">
