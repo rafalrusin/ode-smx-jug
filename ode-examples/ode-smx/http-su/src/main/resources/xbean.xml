@@ -20,7 +20,7 @@
         endpoint="ServiceChecker" 
 	targetService="sck:ServiceChecker"
 	targetEndpoint="ServiceChecker"
-        defaultOperation="claim"
+        defaultOperation="checkState"
         role="provider"
         locationURI="http://localhost:8193/ServiceChecker/"
         defaultMep="http://www.w3.org/2004/08/wsdl/in-out" 

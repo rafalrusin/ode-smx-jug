@@ -1,4 +1,4 @@
-<beans xmlns:jms="jms://servicemix.apache.org/jms/1.0"
+<beans xmlns:jms="http://servicemix.apache.org/jms/1.0"
        xmlns:sac="http://touk.pl/serviceAccepter"
     >
 
@@ -6,7 +6,7 @@
     <property name="jndiName" value="java:/jms/connectionFactory" />
   </bean>
 
-  <jms:provider service="sac:ServiceAccepter" endpoint="jms"
+  <jms:provider service="sac:ServiceAccepter" endpoint="ServiceAccepter"
 		destinationName="serviceAccepter" connectionFactory="#connectionFactory" />
 
   <jms:consumer service="sac:ServiceAccepterResponse" endpoint="jms"
