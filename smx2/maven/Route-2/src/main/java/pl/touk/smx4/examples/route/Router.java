@@ -22,4 +22,7 @@ public class Router extends RouteBuilder {
                  .transform().simple("<answer xmlns=\"http://touk.pl/serviceChecker\">${body}</answer>");
     }
 
+  
+    
+    
 }

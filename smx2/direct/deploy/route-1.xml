@@ -19,13 +19,11 @@
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="properties" ref="props" />
-		<property name="placeholderPrefix" value="@{" />
-		<property name="placeholderSuffix" value="}" />
 	</bean>
 	<import resource="classpath:org/apache/servicemix/camel/nmr/camel-nmr.xml" />
 
 	<camel-osgi:camelContext xmlns="http://camel.apache.org/schema/spring">
-		<endpoint id="fileOut" uri="file://@{file.output}"/>
+		<endpoint id="fileOut" uri="file://${file.output}"/>
 		<route>
 			<from uri="jms:fromRR" />
 			<to uri="nmr:MyRouter" />
@@ -40,15 +38,18 @@
 				<simple>Przyszła wiadomość: ${body}</simple>
 			</transform>
 			<to uri="log:MyRouter" />
-			<!--to uri="jbi:endpoint:http://touk.pl/jmsReply/reply" /-->
 			<to ref="fileOut" />
 		</route>
 	</camel-osgi:camelContext>
 
-	<file:poller service="touk:poller" endpoint="poller"
+	<file:poller service="touk:poller" endpoint="poller" id="poller"
 		targetService="touk:jmsReply" targetEndpoint="jms" file="file:/tmp/poller" />
 
+    <!-- bean class="org.apache.servicemix.jbi.cluster.engine.OsgiSimpleClusterRegistration">
+        <property name="endpoint" ref="poller" />
+    </bean-->
+
 	<jms:provider service="touk:jmsReply" endpoint="jms"
-		destinationName="@{jms.destination}" connectionFactory="#connectionFactory" />
+		destinationName="${jms.destination}" connectionFactory="#connectionFactory" />
 
 </beans>

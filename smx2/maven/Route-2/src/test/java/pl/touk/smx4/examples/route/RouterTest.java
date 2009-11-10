@@ -47,7 +47,7 @@ public class RouterTest extends CamelTestSupport {
     public void testOdd() throws Exception {
         testOne("<a><content>maaa</content><key>11</key></a>", "didn't check");
     }
-
+    
     @Test
     public void testEven() throws Exception {
         testOne("<a><content>maaa</content><key>12</key></a>", "service: maaa is in a bad state :P");
