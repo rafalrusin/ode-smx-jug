@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:tns="http://touk.pl/serviceAccepter" 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	name="serviceAccepter" targetNamespace="http://touk.pl/serviceAccepter"
-	xmlns="http://schemas.xmlsoap.org/wsdl/">
+<definitions xmlns:tns="http://touk.pl/serviceAccepter"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="serviceAccepter"
+	targetNamespace="http://touk.pl/serviceAccepter" xmlns="http://schemas.xmlsoap.org/wsdl/">
 	<types>
 		<xsd:schema targetNamespace="http://touk.pl/serviceAccepter">
-			<xsd:element name="payload" type="xsd:string"/>
+			<xsd:complexType name="payload">
+				<xsd:sequence>
+					<xsd:element name="payload" type="xsd:string" />
+					<xsd:element name="key" type="xsd:integer" />
+				</xsd:sequence>
+			</xsd:complexType>
 		</xsd:schema>
 	</types>
 
 	<message name="claim">
-		<part element="tns:question" name="parameters" />
+		<part element="tns:payload" name="parameters" />
 	</message>
 	<portType name="serviceAccepter">
 		<operation name="acceptService">
@@ -20,9 +24,7 @@
 	<binding name="serviceAccepterSoap" type="tns:serviceChecker">
 		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
 		<operation name="acceptService">
-			<soap:operation
-				soapAction=""
-				style="document" />
+			<soap:operation soapAction="" style="document" />
 			<input>
 				<soap:body use="literal" />
 			</input>

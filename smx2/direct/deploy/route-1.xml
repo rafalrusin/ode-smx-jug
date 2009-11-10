@@ -26,6 +26,9 @@
 		<endpoint id="fileOut" uri="file://${file.output}"/>
 		<route>
 			<from uri="jms:fromRR" />
+			<transform>
+				<xapth>//content</simple>
+			</transform>
 			<to uri="nmr:MyRouter" />
 		</route>
 		<route>
