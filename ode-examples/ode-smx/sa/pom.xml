@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>pl.touk.ode-smx</groupId>
+    <artifactId>pom</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>pl.touk.ode-smx</groupId>
+  <artifactId>ode-smx-sa</artifactId>
+  <packaging>jbi-service-assembly</packaging>
+
+  
+  <dependencies>
+    <dependency>
+      <groupId>pl.touk.ode-smx</groupId>
+      <artifactId>ode-smx-ode-su-${processRevision}</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>pl.touk.ode-smx</groupId>
+      <artifactId>ode-smx-http-su</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>pl.touk.ode-smx</groupId>
+      <artifactId>ode-smx-jms-su</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.servicemix.tooling</groupId>
+        <artifactId>jbi-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate-jbi-service-assembly-descriptor</goal>
+            </goals>
+            <configuration>
+              <name>${project.artifactId}-${processRevision}</name>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+</project>
